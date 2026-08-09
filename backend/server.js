@@ -33,13 +33,18 @@ app.get('/api/health', (req, res) => {
 
 // Serve frontend static assets if built
 const frontendDist = path.join(__dirname, '../frontend/dist');
-app.use(express.static(frontendDist));
-app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/api')) return next();
-  res.sendFile(path.join(frontendDist, 'index.html'), (err) => {
-    if (err) next();
+if (fs.existsSync(frontendDist)) {
+  console.log('[Server] Production frontend dist found at:', frontendDist);
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/socket.io')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDist, 'index.html'));
   });
-});
+} else {
+  console.warn('[Server] WARNING: Frontend dist folder not found at:', frontendDist);
+}
 
 // Setup Socket.IO
 const io = socketIo(server, {
