@@ -1,0 +1,24 @@
+{
+  "name": "typerace-app",
+  "version": "1.0.0",
+  "description": "TypeRace — Every Keystroke Is a Lap (Full-Stack Real-Time Multiplayer Typing Game)",
+  "main": "backend/server.js",
+  "scripts": {
+    "postinstall": "npm run install-all",
+    "install-all": "npm --prefix backend install && npm --prefix frontend install",
+    "build": "npm --prefix frontend run build",
+    "start": "node backend/server.js",
+    "dev": "concurrently \"npm --prefix backend start\" \"npm --prefix frontend dev\"",
+    "clear-db": "node backend/db/clearLeaderboard.js"
+  },
+  "keywords": [
+    "typeracer",
+    "realtime",
+    "react",
+    "socket.io",
+    "express",
+    "synthwave"
+  ],
+  "author": "TypeRace Team",
+  "license": "MIT"
+}
