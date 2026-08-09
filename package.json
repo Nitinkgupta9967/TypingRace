@@ -4,9 +4,9 @@
   "description": "TypeRace — Every Keystroke Is a Lap (Full-Stack Real-Time Multiplayer Typing Game)",
   "main": "backend/server.js",
   "scripts": {
-    "postinstall": "npm run install-all",
+    "postinstall": "npm run install-all && npm run build",
     "install-all": "npm --prefix backend install --include=dev && npm --prefix frontend install --include=dev",
-    "build": "npm --prefix backend install --include=dev && npm --prefix frontend install --include=dev && npm --prefix frontend run build",
+    "build": "npm --prefix frontend run build",
     "start": "node backend/server.js",
     "dev": "concurrently \"npm --prefix backend start\" \"npm --prefix frontend dev\"",
     "clear-db": "node backend/db/clearLeaderboard.js"
