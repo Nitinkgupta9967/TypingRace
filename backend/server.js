@@ -32,8 +32,16 @@ app.get('/api/health', (req, res) => {
 });
 
 // Serve frontend static assets if built
-const frontendDist = path.join(__dirname, '../frontend/dist');
-if (fs.existsSync(frontendDist)) {
+const possibleDistPaths = [
+  path.resolve(__dirname, '../frontend/dist'),
+  path.resolve(__dirname, './dist'),
+  path.resolve(process.cwd(), 'frontend/dist'),
+  path.resolve(process.cwd(), 'dist')
+];
+
+const frontendDist = possibleDistPaths.find(p => fs.existsSync(p));
+
+if (frontendDist) {
   console.log('[Server] Production frontend dist found at:', frontendDist);
   app.use(express.static(frontendDist));
   app.get('*', (req, res, next) => {
@@ -43,7 +51,7 @@ if (fs.existsSync(frontendDist)) {
     res.sendFile(path.join(frontendDist, 'index.html'));
   });
 } else {
-  console.warn('[Server] WARNING: Frontend dist folder not found at:', frontendDist);
+  console.warn('[Server] WARNING: Frontend dist folder not found in any path:', possibleDistPaths);
 }
 
 // Setup Socket.IO
