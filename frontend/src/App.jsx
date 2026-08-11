@@ -20,7 +20,7 @@ import { useAuth } from './context/AuthContext';
 import AudioEngine from './utils/AudioEngine';
 
 export default function App() {
-  const { room, countdown, raceResults, joinRoom, sendProgress, leaveRoom } = useSocket();
+  const { room, countdown, raceResults, joinRoom, sendProgress, leaveRoom, resetLobby } = useSocket();
   const { user } = useAuth();
 
   const [activeTab, setActiveTab] = useState('race'); // race, leaderboard
@@ -143,7 +143,7 @@ export default function App() {
               <PostRaceModal 
                 results={raceResults}
                 currentUserId={user ? user.id : 'guest'}
-                onRematch={leaveRoom}
+                onRematch={resetLobby}
                 onLeave={leaveRoom}
               />
             )}

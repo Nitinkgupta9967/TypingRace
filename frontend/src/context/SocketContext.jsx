@@ -164,11 +164,18 @@ export function SocketProvider({ children }) {
   };
 
   const leaveRoom = () => {
+    if (socket) socket.emit('leave_room');
     setRoom(null);
     setCountdown(null);
     setRaceResults(null);
     setQueueStatus('idle');
     window.history.pushState({}, '', '/');
+  };
+
+  const resetLobby = () => {
+    if (socket) socket.emit('reset_lobby');
+    setRaceResults(null);
+    setCountdown(null);
   };
 
   const setCustomUsername = (newName) => {
@@ -197,6 +204,7 @@ export function SocketProvider({ children }) {
         sendProgress,
         sendChat,
         leaveRoom,
+        resetLobby,
         setCustomUsername
       }}
     >

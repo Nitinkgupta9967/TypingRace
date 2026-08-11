@@ -173,12 +173,13 @@ module.exports = function (io) {
       io.to(roomId).emit('room_updated', roomManager.serializeRoom(room));
     });
 
-    // Host starts race manually (Ensures at least 2 players - auto-adds opponent if solo)
+    // Host starts race manually (Ensures at least 2 players - auto-adds opponent if solo human)
     socket.on('start_race', () => {
       const room = roomManager.getRoom(currentRoomId);
       if (room && room.hostId === socket.user.id && room.state === 'LOBBY') {
-        // If room has less than 2 players, auto-add realistic opponent bot
-        if (room.players.size < 2) {
+        const humanCount = Array.from(room.players.values()).filter(p => !p.isBot).length;
+        // If solo human in room, auto-add 1 bot
+        if (humanCount < 2 && room.players.size < 2) {
           const userAvgWpm = (socket.user.avg_wpm && socket.user.avg_wpm > 0) ? Math.round(socket.user.avg_wpm) : 35;
           const targetWpm = userAvgWpm + 3 + Math.floor(Math.random() * 4);
           const realisticUsernames = [
@@ -205,6 +206,32 @@ module.exports = function (io) {
         }
 
         startCountdown(room);
+      }
+    });
+
+    // Reset room back to LOBBY state for next round (Rematch)
+    socket.on('reset_lobby', () => {
+      const room = roomManager.getRoom(currentRoomId);
+      if (room) {
+        room.state = 'LOBBY';
+        room.startTime = null;
+
+        // Clean up temporary bots
+        const botIds = Array.from(room.players.values()).filter(p => p.isBot).map(p => p.id);
+        botIds.forEach(botId => room.players.delete(botId));
+
+        // Reset all player stats
+        room.players.forEach(p => {
+          p.charIndex = 0;
+          p.wpm = 0;
+          p.accuracy = 100;
+          p.errors = 0;
+          p.finished = false;
+          p.finishTimeMs = null;
+          p.rank = null;
+        });
+
+        io.to(room.id).emit('room_updated', roomManager.serializeRoom(room));
       }
     });
 

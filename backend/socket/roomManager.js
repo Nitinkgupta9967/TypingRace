@@ -57,10 +57,16 @@ class RoomManager {
       return null;
     }
 
-    // If host left, assign new host
+    // If host left, assign new host to the next HUMAN player (never a bot!)
     if (room.hostId === userId) {
-      const nextHost = Array.from(room.players.keys())[0];
-      room.hostId = nextHost;
+      const humanPlayers = Array.from(room.players.values()).filter(p => !p.isBot);
+      if (humanPlayers.length > 0) {
+        room.hostId = humanPlayers[0].id;
+      } else {
+        if (room.countdownTimer) clearInterval(room.countdownTimer);
+        this.rooms.delete(roomId);
+        return null;
+      }
     }
     return room;
   }
