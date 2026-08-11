@@ -22,12 +22,6 @@ export function SocketProvider({ children }) {
 
     s.on('connect', () => {
       console.log('[SocketClient] Connected:', s.id);
-      // Auto-join invite room from URL parameter on connection
-      const params = new URLSearchParams(window.location.search);
-      const inviteRoom = params.get('room');
-      if (inviteRoom) {
-        s.emit('join_room', inviteRoom);
-      }
     });
 
     s.on('init_user', (userData) => {
@@ -177,6 +171,12 @@ export function SocketProvider({ children }) {
     window.history.pushState({}, '', '/');
   };
 
+  const setCustomUsername = (newName) => {
+    if (socket && newName) {
+      socket.emit('set_custom_username', newName);
+    }
+  };
+
   return (
     <SocketContext.Provider
       value={{
@@ -196,7 +196,8 @@ export function SocketProvider({ children }) {
         addBot,
         sendProgress,
         sendChat,
-        leaveRoom
+        leaveRoom,
+        setCustomUsername
       }}
     >
       {children}

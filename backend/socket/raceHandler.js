@@ -37,6 +37,15 @@ module.exports = function (io) {
     socket.emit('init_user', socket.user);
     let currentRoomId = null;
 
+    // Update custom display name
+    socket.on('set_custom_username', (name) => {
+      if (name && typeof name === 'string' && name.trim().length > 0) {
+        const cleanName = name.trim().substring(0, 20);
+        socket.user.username = cleanName;
+        socket.emit('init_user', socket.user);
+      }
+    });
+
     // Join Matchmaking Queue
     socket.on('join_queue', async () => {
       roomManager.addToQueue({ ...socket.user, socketId: socket.id });

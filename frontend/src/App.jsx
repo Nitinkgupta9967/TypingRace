@@ -12,6 +12,7 @@ import AuthModal from './components/AuthModal';
 import CountdownOverlay from './components/CountdownOverlay';
 import JoinRoomModal from './components/JoinRoomModal';
 import MatchmakingModal from './components/MatchmakingModal';
+import InviteModal from './components/InviteModal';
 import { useSocket } from './context/SocketContext';
 import { useAuth } from './context/AuthContext';
 import AudioEngine from './utils/AudioEngine';
@@ -26,15 +27,6 @@ export default function App() {
   const [joinRoomOpen, setJoinRoomOpen] = useState(false);
   const [currentWpm, setCurrentWpm] = useState(0);
   const [currentAcc, setCurrentAcc] = useState(100);
-
-  // Check URL query parameters for invite room code
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const roomCode = params.get('room');
-    if (roomCode) {
-      joinRoom(roomCode);
-    }
-  }, []);
 
   // Reset local WPM and accuracy when room state changes or new race starts
   useEffect(() => {
@@ -165,6 +157,7 @@ export default function App() {
       <FriendsModal isOpen={friendsOpen} onClose={() => setFriendsOpen(false)} />
       <JoinRoomModal isOpen={joinRoomOpen} onClose={() => setJoinRoomOpen(false)} />
       <MatchmakingModal />
+      <InviteModal />
     </div>
   );
 }
