@@ -351,17 +351,19 @@ module.exports = function (io) {
     }, intervalMs);
   }
 
-  // Handle Player Finishing Race - Instant end on first finisher (no waiting for rivals)
+  // Handle Player Finishing Race - Graceful multi-player completion
   async function handlePlayerFinished(room, player) {
-    if (room.state === 'FINISHED') return;
+    if (player.finished || room.state === 'FINISHED') return;
     
-    room.state = 'FINISHED';
     player.finished = true;
-    player.finishTimeMs = Date.now() - room.startTime;
-    player.rank = 1;
-    player.pointsGained = 25;
+    player.finishTimeMs = Date.now() - (room.startTime || Date.now());
+    
+    // Calculate finished rank based on number of players already finished
+    const finishedPlayers = Array.from(room.players.values()).filter(p => p.finished);
+    player.rank = finishedPlayers.length;
+    player.pointsGained = player.rank === 1 ? 25 : (player.rank === 2 ? 15 : 10);
 
-    // Broadcast winner finished
+    // Broadcast individual player completion
     io.to(room.id).emit('player_finished', {
       userId: player.id,
       rank: player.rank,
@@ -371,61 +373,67 @@ module.exports = function (io) {
       pointsGained: player.pointsGained
     });
 
-    // Update database for winner if registered user
+    // Update database for finished registered user
     if (player.id && !player.id.startsWith('guest_') && !player.isBot) {
       try {
         await db.query(
           `UPDATE users SET 
             total_races = total_races + 1,
-            wins = wins + 1,
-            rating = MAX(100, rating + 25),
+            wins = wins + ${player.rank === 1 ? 1 : 0},
+            rating = MAX(100, rating + ?),
             xp = xp + ?,
             best_wpm = MAX(best_wpm, ?),
             avg_wpm = ROUND((avg_wpm * total_races + ?) / (total_races + 1), 1)
            WHERE id = ?`,
-          [Math.round((player.wpm || 0) * 2), player.wpm || 0, player.wpm || 0, player.id]
+          [player.pointsGained, Math.round((player.wpm || 0) * 2), player.wpm || 0, player.wpm || 0, player.id]
         );
       } catch (err) {
-        console.error('Failed to update DB for winner:', err.message);
+        console.error('Failed to update DB for finished player:', err.message);
       }
     }
 
-    // Rank all remaining players instantly based on current progress
-    let nextRank = 2;
-    const rivals = Array.from(room.players.values())
-      .filter(p => p.id !== player.id)
-      .sort((a, b) => (b.charIndex || 0) - (a.charIndex || 0));
-
-    for (const rival of rivals) {
-      rival.finished = true;
-      rival.rank = nextRank++;
-      rival.pointsGained = -10;
-
-      if (rival.id && !rival.id.startsWith('guest_') && !rival.isBot) {
-        try {
-          await db.query(
-            `UPDATE users SET 
-              total_races = total_races + 1,
-              rating = MAX(100, rating - 10),
-              best_wpm = MAX(best_wpm, ?),
-              avg_wpm = ROUND((avg_wpm * total_races + ?) / (total_races + 1), 1)
-             WHERE id = ?`,
-            [rival.wpm || 0, rival.wpm || 0, rival.id]
-          );
-        } catch (e) {}
-      }
+    // Check if ALL players in the room have finished
+    const allFinished = Array.from(room.players.values()).every(p => p.finished);
+    if (allFinished) {
+      finishRoomRace(room);
+    } else if (player.rank === 1 && !room.graceTimer) {
+      // Give remaining typists a 15-second grace window to complete their race
+      room.graceTimer = setTimeout(() => {
+        const unfinishedRivals = Array.from(room.players.values()).filter(p => !p.finished);
+        let nextRank = finishedPlayers.length + 1;
+        for (const rival of unfinishedRivals) {
+          rival.finished = true;
+          rival.rank = nextRank++;
+          rival.pointsGained = -5;
+        }
+        finishRoomRace(room);
+      }, 15000);
     }
+  }
+
+  // Finalize Room Race & Broadcast Standings
+  async function finishRoomRace(room) {
+    if (room.state === 'FINISHED') return;
+    room.state = 'FINISHED';
+    if (room.graceTimer) {
+      clearTimeout(room.graceTimer);
+      room.graceTimer = null;
+    }
+
+    const winner = Array.from(room.players.values()).find(p => p.rank === 1);
 
     // Record race entry in DB
-    try {
-      const raceId = 'race_' + Date.now();
-      await db.query(
-        `INSERT INTO races (id, room_id, prompt_text, winner_id) VALUES (?, ?, ?, ?)`,
-        [raceId, room.id, room.prompt ? room.prompt.text : '', player.id]
-      );
-    } catch (e) {}
+    if (winner) {
+      try {
+        const raceId = 'race_' + Date.now();
+        await db.query(
+          `INSERT INTO races (id, room_id, prompt_text, winner_id) VALUES (?, ?, ?, ?)`,
+          [raceId, room.id, room.prompt ? room.prompt.text : '', winner.id]
+        );
+      } catch (e) {}
+    }
 
-    // Emit race_over instantly to all clients in the room
+    // Emit final race_over results to all clients in the room
     io.to(room.id).emit('race_over', {
       results: Array.from(room.players.values()).sort((a, b) => a.rank - b.rank)
     });
