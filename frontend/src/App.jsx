@@ -13,6 +13,7 @@ import CountdownOverlay from './components/CountdownOverlay';
 import JoinRoomModal from './components/JoinRoomModal';
 import MatchmakingModal from './components/MatchmakingModal';
 import InviteModal from './components/InviteModal';
+import CreateRoomModal from './components/CreateRoomModal';
 import { useSocket } from './context/SocketContext';
 import { useAuth } from './context/AuthContext';
 import AudioEngine from './utils/AudioEngine';
@@ -25,6 +26,7 @@ export default function App() {
   const [authOpen, setAuthOpen] = useState(false);
   const [friendsOpen, setFriendsOpen] = useState(false);
   const [joinRoomOpen, setJoinRoomOpen] = useState(false);
+  const [createRoomOpen, setCreateRoomOpen] = useState(false);
   const [currentWpm, setCurrentWpm] = useState(0);
   const [currentAcc, setCurrentAcc] = useState(100);
 
@@ -148,6 +150,7 @@ export default function App() {
           <Matchmaker 
             onOpenFriends={() => setFriendsOpen(true)}
             onOpenJoinRoom={() => setJoinRoomOpen(true)}
+            onOpenCreateRoom={() => setCreateRoomOpen(true)}
           />
         )}
       </div>
@@ -156,6 +159,7 @@ export default function App() {
       <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
       <FriendsModal isOpen={friendsOpen} onClose={() => setFriendsOpen(false)} />
       <JoinRoomModal isOpen={joinRoomOpen} onClose={() => setJoinRoomOpen(false)} />
+      <CreateRoomModal isOpen={createRoomOpen} onClose={() => setCreateRoomOpen(false)} />
       <MatchmakingModal />
       <InviteModal />
     </div>

@@ -3,8 +3,8 @@ import { Play, Users, Bot, Zap, ArrowRight, Target, Clock, LogIn } from 'lucide-
 import { useSocket } from '../context/SocketContext';
 import CountdownOverlay from './CountdownOverlay';
 
-export default function Matchmaker({ onOpenFriends, onOpenJoinRoom }) {
-  const { joinQueue, createRoom } = useSocket();
+export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreateRoom }) {
+  const { joinQueue } = useSocket();
   const [lapsCount, setLapsCount] = useState(128406);
 
   // Animated preview cycle for landing page countdown cards (3 -> 2 -> 1 -> GO!)
@@ -54,7 +54,7 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom }) {
             </svg>
           </button>
 
-          <button className="btn btn-violet" onClick={createRoom}>
+          <button className="btn btn-violet" onClick={onOpenCreateRoom}>
             <Users size={18} /> Create Room
           </button>
 
