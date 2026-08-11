@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Keyboard } from 'lucide-react';
+import { Keyboard, CheckCircle2 } from 'lucide-react';
 import AudioEngine from '../utils/AudioEngine';
 
 export default function TypingEngine({ promptText = '', disabled = false, startTime = null, onProgress, onFinish }) {
   const [typedText, setTypedText] = useState('');
   const [shaking, setShaking] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [mobileInputValue, setMobileInputValue] = useState('');
   const inputRef = useRef(null);
   const startTimeRef = useRef(null);
 
@@ -22,6 +23,7 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
   useEffect(() => {
     // Reset state when prompt changes
     setTypedText('');
+    setMobileInputValue('');
     totalKeystrokesRef.current = 0;
     errorsRef.current = 0;
     startTimeRef.current = null;
@@ -35,8 +37,10 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
 
   useEffect(() => {
     if (!disabled && inputRef.current) {
-      // Auto-focus on start
-      inputRef.current.focus();
+      // Auto-focus input on race start
+      try {
+        inputRef.current.focus();
+      } catch (err) {}
     }
   }, [disabled]);
 
@@ -60,7 +64,7 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
       setTypedText(newTyped);
       AudioEngine.playKeySound();
 
-      // Precise Math Calculations
+      // Precise WPM & Accuracy Math Calculations
       const elapsedMins = (Date.now() - (startTimeRef.current || Date.now())) / 1000 / 60;
       const validMins = elapsedMins > 0.005 ? elapsedMins : 0.005;
       const currentWpm = Math.round((newTyped.length / 5) / validMins);
@@ -106,7 +110,7 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
     }
   };
 
-  // Keyboard handler for Desktop
+  // Keyboard handler for Desktop physical keyboards
   const handleKeyDown = (e) => {
     if (disabled || !promptText) return;
 
@@ -115,25 +119,28 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
       return;
     }
 
-    // Process single printable characters
-    if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    // Process single printable characters on physical keyboards (without e.preventDefault() to avoid breaking mobile touch keyboards!)
+    if (e.key && e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
       processTypedChar(e.key);
-      e.preventDefault();
     }
   };
 
-  // Mobile virtual keyboard input handler
+  // Universal input handler for Mobile Touch Virtual Keyboards (Android Gboard / iOS Safari / Samsung)
   const handleInputChange = (e) => {
     if (disabled || !promptText) return;
     const val = e.target.value;
     if (!val) return;
 
-    // Iterate through input buffer characters (handles mobile predictive text & swipe)
+    // Process each character typed on touch virtual keyboards
     for (let i = 0; i < val.length; i++) {
       processTypedChar(val[i]);
     }
+
     // Clear input buffer for next keystrokes
-    e.target.value = '';
+    setMobileInputValue('');
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
   };
 
   const focusInput = () => {
@@ -162,65 +169,85 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
       
-      {/* Mobile Keyboard Trigger Button */}
-      <button 
-        className="mobile-keyboard-btn"
-        onClick={focusInput}
-        disabled={disabled}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px',
-          padding: '12px 18px',
-          borderRadius: '100px',
-          background: isFocused ? 'rgba(110, 227, 255, 0.18)' : 'rgba(177, 138, 255, 0.18)',
-          border: '1px solid var(--cyan-dim)',
-          color: 'var(--cyan)',
-          fontFamily: 'JetBrains Mono, monospace',
-          fontSize: '13px',
-          fontWeight: '600',
-          cursor: 'pointer',
-          boxShadow: isFocused ? '0 0 15px var(--cyan-dim)' : 'none'
-        }}
-      >
-        <Keyboard size={18} color="var(--cyan)" />
-        {disabled ? 'RACE NOT STARTED' : isFocused ? 'KEYBOARD ACTIVE — TYPE NOW' : 'TAP HERE TO OPEN KEYBOARD'}
-      </button>
+      {/* Mobile Keyboard Trigger Action Bar */}
+      <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <button 
+          className="mobile-keyboard-btn"
+          onClick={focusInput}
+          disabled={disabled}
+          type="button"
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            padding: '14px 20px',
+            borderRadius: '100px',
+            background: isFocused ? 'rgba(110, 227, 255, 0.22)' : 'rgba(177, 138, 255, 0.18)',
+            border: isFocused ? '1px solid var(--cyan)' : '1px solid var(--cyan-dim)',
+            color: 'var(--cyan)',
+            fontFamily: 'JetBrains Mono, monospace',
+            fontSize: '13.5px',
+            fontWeight: '700',
+            cursor: disabled ? 'not-allowed' : 'pointer',
+            boxShadow: isFocused ? '0 0 20px var(--cyan-dim)' : 'none',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          <Keyboard size={18} color="var(--cyan)" />
+          {disabled 
+            ? 'RACE NOT STARTED — WAIT FOR COUNTDOWN' 
+            : isFocused 
+              ? 'KEYBOARD ACTIVE — TYPE CHARACTERS BELOW' 
+              : 'TAP HERE TO OPEN KEYBOARD & RACE'}
+        </button>
+      </div>
 
-      {/* Typing Engine Visual Box */}
+      {/* Main Sci-Fi Typing Box */}
       <div 
         className={`typing-box-sci ${shaking ? 'shake' : ''}`}
         onClick={focusInput}
+        onTouchStart={focusInput}
         style={{ cursor: disabled ? 'not-allowed' : 'text', opacity: disabled ? 0.6 : 1, position: 'relative' }}
       >
+        <div>{renderPrompt()}</div>
+      </div>
+
+      {/* Touch Input Bar for Mobile Keyboards */}
+      <div style={{ position: 'relative', width: '100%' }}>
         <input
           ref={inputRef}
           type="text"
+          value={mobileInputValue}
           onKeyDown={handleKeyDown}
-          onChange={handleInputChange}
+          onChange={(e) => {
+            setMobileInputValue(e.target.value);
+            handleInputChange(e);
+          }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           disabled={disabled}
+          placeholder={disabled ? "Race not active" : "Mobile typists: Tap here to type on your keyboard..."}
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck="false"
-          style={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            width: '100%', 
-            height: '100%', 
-            opacity: 0.01, 
-            zIndex: 5, 
-            cursor: 'text' 
+          style={{
+            width: '100%',
+            padding: '14px 18px',
+            borderRadius: '14px',
+            background: 'rgba(8, 12, 22, 0.95)',
+            border: isFocused ? '1px solid var(--cyan)' : '1px solid var(--line-strong)',
+            color: 'var(--cyan)',
+            fontSize: '15px',
+            fontFamily: 'JetBrains Mono, monospace',
+            outline: 'none',
+            boxShadow: isFocused ? '0 0 16px var(--cyan-dim)' : 'none'
           }}
-          autoFocus
         />
-        <div style={{ pointerEvents: 'none' }}>{renderPrompt()}</div>
       </div>
 
     </div>

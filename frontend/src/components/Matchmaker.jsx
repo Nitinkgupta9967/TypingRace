@@ -46,23 +46,23 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom }) {
         </p>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '36px' }}>
-          <button className="btn btn-primary" style={{ padding: '16px 32px', fontSize: '16px' }} onClick={joinQueue}>
+        <div className="hero-action-btns">
+          <button className="btn btn-primary" onClick={joinQueue}>
             Start Racing Now
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#05070d" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
 
-          <button className="btn btn-violet" style={{ padding: '16px 26px' }} onClick={createRoom}>
+          <button className="btn btn-violet" onClick={createRoom}>
             <Users size={18} /> Create Room
           </button>
 
-          <button className="btn btn-ghost" style={{ padding: '16px 24px', borderColor: 'var(--cyan-dim)', color: 'var(--cyan)' }} onClick={onOpenJoinRoom}>
+          <button className="btn btn-ghost" style={{ borderColor: 'var(--cyan-dim)', color: 'var(--cyan)' }} onClick={onOpenJoinRoom}>
             <LogIn size={18} color="var(--cyan)" /> Join Room
           </button>
 
-          <button className="btn btn-ghost" style={{ padding: '16px 24px' }} onClick={onOpenFriends}>
+          <button className="btn btn-ghost" onClick={onOpenFriends}>
             <Bot size={18} /> Invite Friends
           </button>
         </div>

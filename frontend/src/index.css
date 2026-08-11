@@ -721,6 +721,62 @@ p.sub {
 .badge-violet { background: rgba(177, 138, 255, 0.15); color: var(--violet); border: 1px solid var(--violet-dim); }
 .badge-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.4); }
 
+.hero-action-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  width: 100%;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mobile-drawer-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background: rgba(10, 14, 26, 0.95);
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(16px);
+}
+
+.mobile-drawer-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  color: var(--white);
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.mobile-drawer-btn.active {
+  background: var(--panel);
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
 /* ---------------- RESPONSIVE MEDIA QUERIES ---------------- */
 @media (max-width: 900px) {
   header.nav {
@@ -729,15 +785,17 @@ p.sub {
     gap: 8px;
   }
   .nav-links {
-    order: 3;
-    width: 100%;
-    justify-content: flex-start;
-    padding-top: 6px;
-    border-top: 1px solid var(--line);
+    display: none !important;
+  }
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+  .fly-word {
+    display: none !important;
   }
   main.landing-container {
-    padding: 130px 14px 60px;
-    gap: 45px;
+    padding: 100px 14px 60px;
+    gap: 40px;
   }
   .hero-stats-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -756,10 +814,11 @@ p.sub {
     gap: 10px;
   }
   h1.headline {
-    font-size: clamp(34px, 8.5vw, 56px);
+    font-size: clamp(32px, 8.5vw, 54px);
+    line-height: 1.05;
   }
   p.sub {
-    font-size: 14.5px;
+    font-size: 14px;
   }
   .btn {
     padding: 12px 18px;
@@ -771,10 +830,23 @@ p.sub {
   }
 }
 
+@media (max-width: 600px) {
+  .hero-action-btns {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .hero-action-btns .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+}
+
 @media (max-width: 480px) {
   main.landing-container {
-    padding: 140px 12px 50px;
-    gap: 36px;
+    padding: 100px 12px 50px;
+    gap: 32px;
   }
   .hero-stats-grid {
     grid-template-columns: repeat(2, 1fr);
