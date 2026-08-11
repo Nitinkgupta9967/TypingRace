@@ -151,6 +151,7 @@ export default function App() {
             onOpenFriends={() => setFriendsOpen(true)}
             onOpenJoinRoom={() => setJoinRoomOpen(true)}
             onOpenCreateRoom={() => setCreateRoomOpen(true)}
+            onOpenAuth={() => setAuthOpen(true)}
           />
         )}
       </div>

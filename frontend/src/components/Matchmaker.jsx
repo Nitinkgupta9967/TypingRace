@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Users, Bot, Zap, ArrowRight, Target, Clock, LogIn } from 'lucide-react';
 import { useSocket } from '../context/SocketContext';
+import { useAuth } from '../context/AuthContext';
 import CountdownOverlay from './CountdownOverlay';
+import GuestNameModal from './GuestNameModal';
 
-export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreateRoom }) {
-  const { joinQueue } = useSocket();
+export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreateRoom, onOpenAuth }) {
+  const { joinQueue, socketUser } = useSocket();
+  const { user } = useAuth();
+  const [guestNameModalOpen, setGuestNameModalOpen] = useState(false);
   const [lapsCount, setLapsCount] = useState(128406);
+
+  const handleStartRacing = () => {
+    // If guest user without a set custom name, prompt GuestNameModal
+    const savedName = localStorage.getItem('tr_guest_name');
+    if (!user && !savedName && (!socketUser || !socketUser.username || socketUser.username.startsWith('Racer_'))) {
+      setGuestNameModalOpen(true);
+    } else {
+      joinQueue();
+    }
+  };
 
   // Animated preview cycle for landing page countdown cards (3 -> 2 -> 1 -> GO!)
   const [previewStep, setPreviewStep] = useState('3');
@@ -47,7 +61,7 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
 
         {/* Action Buttons */}
         <div className="hero-action-btns">
-          <button className="btn btn-primary" onClick={joinQueue}>
+          <button className="btn btn-primary" onClick={handleStartRacing}>
             Start Racing Now
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#05070d" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -99,7 +113,7 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
         </h2>
 
         <div className="mode-cards-grid">
-          <div className="gamified-card" onClick={joinQueue} style={{ cursor: 'pointer' }}>
+          <div className="gamified-card" onClick={handleStartRacing} style={{ cursor: 'pointer' }}>
             <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(110, 227, 255, 0.15)', border: '1px solid var(--cyan-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <Zap size={26} color="var(--cyan)" />
             </div>
@@ -276,6 +290,14 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
           </div>
         </div>
       </div>
+
+      {/* Guest Racer Name Prompt Modal */}
+      <GuestNameModal
+        isOpen={guestNameModalOpen}
+        onClose={() => setGuestNameModalOpen(false)}
+        onConfirm={() => joinQueue()}
+        onOpenAuth={onOpenAuth}
+      />
 
     </main>
   );
