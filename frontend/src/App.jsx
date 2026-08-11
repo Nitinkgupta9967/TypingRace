@@ -14,6 +14,7 @@ import JoinRoomModal from './components/JoinRoomModal';
 import MatchmakingModal from './components/MatchmakingModal';
 import InviteModal from './components/InviteModal';
 import CreateRoomModal from './components/CreateRoomModal';
+import GuestNameModal from './components/GuestNameModal';
 import { useSocket } from './context/SocketContext';
 import { useAuth } from './context/AuthContext';
 import AudioEngine from './utils/AudioEngine';
@@ -27,6 +28,7 @@ export default function App() {
   const [friendsOpen, setFriendsOpen] = useState(false);
   const [joinRoomOpen, setJoinRoomOpen] = useState(false);
   const [createRoomOpen, setCreateRoomOpen] = useState(false);
+  const [guestNameModalOpen, setGuestNameModalOpen] = useState(false);
   const [currentWpm, setCurrentWpm] = useState(0);
   const [currentAcc, setCurrentAcc] = useState(100);
 
@@ -65,6 +67,7 @@ export default function App() {
         onOpenFriends={() => setFriendsOpen(true)}
         onOpenJoinRoom={() => setJoinRoomOpen(true)}
         onOpenLeaderboard={() => setActiveTab('leaderboard')}
+        onOpenEditName={() => setGuestNameModalOpen(true)}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
@@ -161,6 +164,7 @@ export default function App() {
       <FriendsModal isOpen={friendsOpen} onClose={() => setFriendsOpen(false)} />
       <JoinRoomModal isOpen={joinRoomOpen} onClose={() => setJoinRoomOpen(false)} />
       <CreateRoomModal isOpen={createRoomOpen} onClose={() => setCreateRoomOpen(false)} />
+      <GuestNameModal isOpen={guestNameModalOpen} onClose={() => setGuestNameModalOpen(false)} onOpenAuth={() => setAuthOpen(true)} />
       <MatchmakingModal />
       <InviteModal />
     </div>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX, Award, LogIn, Hash, Menu, X, Users, Trophy } from 'lucide-react';
+import { Volume2, VolumeX, Award, LogIn, Hash, Menu, X, Users, Trophy, Edit3 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
 import AudioEngine from '../utils/AudioEngine';
 
-export default function Navbar({ onOpenAuth, onOpenFriends, onOpenJoinRoom, onOpenLeaderboard, activeTab, setActiveTab }) {
+export default function Navbar({ onOpenAuth, onOpenFriends, onOpenJoinRoom, onOpenLeaderboard, onOpenEditName, activeTab, setActiveTab }) {
   const { user, logout } = useAuth();
+  const { socketUser } = useSocket();
   const [muted, setMuted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -12,6 +14,8 @@ export default function Navbar({ onOpenAuth, onOpenFriends, onOpenJoinRoom, onOp
     const isMuted = AudioEngine.toggleMute();
     setMuted(isMuted);
   };
+
+  const displayName = user ? user.username : (socketUser ? socketUser.username : 'Racer_Guest');
 
   return (
     <header className="nav">
@@ -73,33 +77,35 @@ export default function Navbar({ onOpenAuth, onOpenFriends, onOpenJoinRoom, onOp
           {muted ? <VolumeX size={16} color="var(--rose)" /> : <Volume2 size={16} color="var(--cyan)" />}
         </button>
 
-        {user ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ padding: '6px 14px', borderRadius: '100px', background: 'var(--panel)', border: '1px solid var(--line)', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
-              <div style={{
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                backgroundColor: user.avatar_color || '#6ee3ff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: '700',
-                fontSize: '0.75rem',
-                color: '#05070d'
-              }}>
-                {user.username.charAt(0).toUpperCase()}
-              </div>
-              <span className="user-name-text" style={{ fontWeight: '600', color: 'var(--white)' }}>{user.username}</span>
-              <span style={{ color: 'var(--amber)', display: 'flex', alignItems: 'center', gap: '2px', fontFamily: 'JetBrains Mono', fontSize: '11px' }}>
-                <Award size={12} /> {user.rating}
-              </span>
-            </div>
-
-            <button className="nav-link-btn" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={logout}>
-              Logout
-            </button>
+        {/* User / Guest Racer Name Pill */}
+        <button 
+          className="nav-link-btn"
+          onClick={onOpenEditName}
+          title="Click to change display name"
+          style={{ padding: '6px 12px', background: 'var(--panel)', border: '1px solid var(--line-strong)' }}
+        >
+          <div style={{
+            width: '22px',
+            height: '22px',
+            borderRadius: '50%',
+            backgroundColor: user ? (user.avatar_color || '#6ee3ff') : '#b18aff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: '700',
+            fontSize: '0.72rem',
+            color: '#05070d'
+          }}>
+            {displayName.charAt(0).toUpperCase()}
           </div>
+          <span className="user-name-text" style={{ fontWeight: '600', color: 'var(--white)' }}>{displayName}</span>
+          <Edit3 size={13} color="var(--cyan)" />
+        </button>
+
+        {user ? (
+          <button className="nav-link-btn" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={logout}>
+            Logout
+          </button>
         ) : (
           <button className="nav-cta" onClick={onOpenAuth}>
             <LogIn size={14} /> Sign in
@@ -143,6 +149,12 @@ export default function Navbar({ onOpenAuth, onOpenFriends, onOpenJoinRoom, onOp
             onClick={() => { onOpenFriends(); setMobileMenuOpen(false); }}
           >
             <Users size={16} color="var(--violet)" /> Friends & Squad Duels
+          </button>
+          <button 
+            className="mobile-drawer-btn"
+            onClick={() => { onOpenEditName(); setMobileMenuOpen(false); }}
+          >
+            <Edit3 size={16} color="var(--cyan)" /> Edit Racer Display Name ({displayName})
           </button>
         </div>
       )}
