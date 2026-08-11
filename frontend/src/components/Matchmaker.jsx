@@ -114,7 +114,7 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
             </div>
           </div>
 
-          <div className="gamified-card" onClick={createRoom} style={{ cursor: 'pointer' }}>
+          <div className="gamified-card" onClick={onOpenCreateRoom} style={{ cursor: 'pointer' }}>
             <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(177, 138, 255, 0.15)', border: '1px solid var(--violet-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
               <Target size={26} color="var(--violet)" />
             </div>
