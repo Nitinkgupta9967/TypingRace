@@ -8,17 +8,20 @@ export default function SceneBackground() {
   const wordsRef = useRef(null);
 
   useEffect(() => {
-    // Generate speed streaks
+    const isMobile = window.innerWidth <= 768;
+
+    // Generate speed streaks (scaled for mobile vs desktop)
     if (streaksRef.current && streaksRef.current.children.length === 0) {
-      for (let i = 0; i < 26; i++) {
+      const streakCount = isMobile ? 12 : 26;
+      for (let i = 0; i < streakCount; i++) {
         const el = document.createElement('div');
         el.className = 'streak';
         const ang = Math.random() * 360;
-        const dist = 700 + Math.random() * 500;
+        const maxDist = isMobile ? (window.innerWidth * 0.45) : (700 + Math.random() * 500);
         const dur = 1.6 + Math.random() * 2.2;
         const delay = -Math.random() * 4;
         el.style.setProperty('--ang', ang + 'deg');
-        el.style.setProperty('--dist', dist + 'px');
+        el.style.setProperty('--dist', maxDist + 'px');
         el.style.setProperty('--dur', dur + 's');
         el.style.setProperty('--delay', delay + 's');
         el.style.setProperty('--streak-color', COLORS[Math.floor(Math.random() * COLORS.length)]);
@@ -26,8 +29,8 @@ export default function SceneBackground() {
       }
     }
 
-    // Generate flying background words
-    if (wordsRef.current && wordsRef.current.children.length === 0) {
+    // Generate flying background words ONLY on desktop screens (innerWidth > 768)
+    if (!isMobile && wordsRef.current && wordsRef.current.children.length === 0) {
       for (let i = 0; i < 8; i++) {
         const el = document.createElement('div');
         el.className = 'fly-word';

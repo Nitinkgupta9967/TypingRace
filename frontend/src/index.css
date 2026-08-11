@@ -793,6 +793,15 @@ p.sub {
   .fly-word {
     display: none !important;
   }
+  .grid-floor, .grid-ceiling {
+    width: 180vw !important;
+    margin-left: -90vw !important;
+  }
+  .scene {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow: hidden !important;
+  }
   main.landing-container {
     padding: 100px 14px 60px;
     gap: 40px;
