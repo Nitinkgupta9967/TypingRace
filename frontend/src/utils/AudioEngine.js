@@ -13,6 +13,7 @@ class AudioEngine {
     }
   }
 
+  // Sweet & low warm tone for correct keystrokes
   playKeySound() {
     if (this.muted) return;
     this.init();
@@ -22,43 +23,57 @@ class AudioEngine {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
-      // Mechanical key click frequency blend
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(600 + Math.random() * 200, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.03);
+      // Pure sine wave for smooth, sweet tone
+      osc.type = 'sine';
+      // Low-mid warm frequency range (340Hz with micro-variation)
+      const baseFreq = 340 + (Math.random() * 50 - 25);
+      osc.frequency.setValueAtTime(baseFreq, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.88, this.ctx.currentTime + 0.055);
 
-      gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.03);
+      // Soft, pleasant low volume envelope
+      gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.055);
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
 
       osc.start();
-      osc.stop(this.ctx.currentTime + 0.035);
+      osc.stop(this.ctx.currentTime + 0.06);
     } catch (e) {}
   }
 
+  // Distinct low-frequency buzz/thud for incorrect typing mistakes
   playErrorSound() {
     if (this.muted) return;
     this.init();
     if (!this.ctx) return;
 
     try {
-      const osc = this.ctx.createOscillator();
+      const osc1 = this.ctx.createOscillator();
+      const osc2 = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(180, this.ctx.currentTime);
-      osc.frequency.setValueAtTime(120, this.ctx.currentTime + 0.08);
+      osc1.type = 'sawtooth';
+      osc2.type = 'square';
 
-      gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+      // Low dissonant frequencies (130Hz & 115Hz dropping to low thud)
+      osc1.frequency.setValueAtTime(130, this.ctx.currentTime);
+      osc1.frequency.exponentialRampToValueAtTime(65, this.ctx.currentTime + 0.12);
 
-      osc.connect(gain);
+      osc2.frequency.setValueAtTime(115, this.ctx.currentTime);
+      osc2.frequency.exponentialRampToValueAtTime(55, this.ctx.currentTime + 0.12);
+
+      gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.005, this.ctx.currentTime + 0.12);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
       gain.connect(this.ctx.destination);
 
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.15);
+      osc1.start();
+      osc2.start();
+      osc1.stop(this.ctx.currentTime + 0.13);
+      osc2.stop(this.ctx.currentTime + 0.13);
     } catch (e) {}
   }
 
