@@ -64,7 +64,7 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
           <button className="btn btn-primary" onClick={handleStartRacing}>
             Start Racing Now
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#05070d" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
 
@@ -72,8 +72,8 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
             <Users size={18} /> Create Room
           </button>
 
-          <button className="btn btn-ghost" style={{ borderColor: 'var(--cyan-dim)', color: 'var(--cyan)' }} onClick={onOpenJoinRoom}>
-            <LogIn size={18} color="var(--cyan)" /> Join Room
+          <button className="btn btn-ghost" onClick={onOpenJoinRoom}>
+            <LogIn size={18} color="#ffffff" /> Join Room
           </button>
 
           <button className="btn btn-ghost" onClick={onOpenFriends}>
@@ -83,24 +83,24 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
 
         {/* Hero Stats Grid Bar */}
         <div className="hero-stats-grid">
-          <div className="gamified-card" style={{ padding: '20px', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.8rem', fontWeight: '700', color: 'var(--cyan)', fontFamily: 'Rajdhani, sans-serif' }}>50K+</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px' }}>RACES PLAYED</div>
+          <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: 'Rajdhani, sans-serif' }}>50K+</div>
+            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>RACES PLAYED</div>
           </div>
 
-          <div className="gamified-card" style={{ padding: '20px', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.8rem', fontWeight: '700', color: 'var(--violet)', fontFamily: 'Rajdhani, sans-serif' }}>25K+</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px' }}>ACTIVE TYPISTS</div>
+          <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: 'Rajdhani, sans-serif' }}>25K+</div>
+            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>ACTIVE TYPISTS</div>
           </div>
 
-          <div className="gamified-card" style={{ padding: '20px', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.8rem', fontWeight: '700', color: 'var(--amber)', fontFamily: 'Rajdhani, sans-serif' }}>120+</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px' }}>COUNTRIES</div>
+          <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--amber)', fontFamily: 'Rajdhani, sans-serif' }}>120+</div>
+            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>COUNTRIES</div>
           </div>
 
-          <div className="gamified-card" style={{ padding: '20px', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.8rem', fontWeight: '700', color: 'var(--emerald)', fontFamily: 'Rajdhani, sans-serif' }}>98 WPM</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px' }}>TOP PLAYER AVG</div>
+          <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--emerald)', fontFamily: 'Rajdhani, sans-serif' }}>98 WPM</div>
+            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>TOP PLAYER AVG</div>
           </div>
         </div>
       </div>
@@ -109,33 +109,33 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
       <div>
         <div className="hud-label" style={{ marginBottom: '8px' }}>ARENA SELECTION</div>
         <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px' }}>
-          CHOOSE YOUR <span style={{ color: 'var(--cyan)' }}>MODE</span>
+          CHOOSE YOUR <span style={{ color: '#ffffff' }}>MODE</span>
         </h2>
 
         <div className="mode-cards-grid">
           <div className="gamified-card" onClick={handleStartRacing} style={{ cursor: 'pointer' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(110, 227, 255, 0.15)', border: '1px solid var(--cyan-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Zap size={26} color="var(--cyan)" />
+            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255, 255, 255, 0.1)', border: '1px solid var(--line-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <Zap size={26} color="#ffffff" />
             </div>
-            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.4rem', fontWeight: '700', marginBottom: '8px', color: 'var(--cyan)' }}>
+            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.5rem', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>
               ⚡ RACE MODE
             </h3>
-            <p style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: '1.5', marginBottom: '20px' }}>
+            <p style={{ fontSize: '15px', color: 'var(--muted)', lineHeight: '1.5', marginBottom: '20px' }}>
               Compete against other typists in real-time 1v1 duels and multi-player rooms.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--cyan)', fontWeight: '600' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#ffffff', fontWeight: '700' }}>
               Enter Arena <ArrowRight size={14} />
             </div>
           </div>
 
           <div className="gamified-card" onClick={onOpenCreateRoom} style={{ cursor: 'pointer' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(177, 138, 255, 0.15)', border: '1px solid var(--violet-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Target size={26} color="var(--violet)" />
+            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255, 255, 255, 0.1)', border: '1px solid var(--line-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <Target size={26} color="#ffffff" />
             </div>
-            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.4rem', fontWeight: '700', marginBottom: '8px', color: 'var(--violet)' }}>
+            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.5rem', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>
               🎯 PRACTICE MODE
             </h3>
-            <p style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: '1.5', marginBottom: '20px' }}>
+            <p style={{ fontSize: '15px', color: 'var(--muted)', lineHeight: '1.5', marginBottom: '20px' }}>
               Improve your speed and accuracy with targeted prompt drills and private lobby sessions.
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--violet)', fontWeight: '600' }}>

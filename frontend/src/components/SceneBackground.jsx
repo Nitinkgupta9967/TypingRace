@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 const WORDS = ['SPEED', 'FOCUS', 'ACCURACY', 'PRECISION', 'CONSISTENCY', 'MOMENTUM', 'RHYTHM', 'REFLEX', 'TEMPO', 'STREAK'];
-const COLORS = ['#6ee3ff', '#b18aff', '#f3f6fb'];
+const COLORS = ['#ffffff', '#e4e4e7', '#a1a1aa'];
 
 export default function SceneBackground() {
   const streaksRef = useRef(null);
