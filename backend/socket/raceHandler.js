@@ -428,12 +428,15 @@ module.exports = function (io) {
       }
     }
 
-    // Check if ALL players in the room have finished
-    const allFinished = Array.from(room.players.values()).every(p => p.finished);
-    if (allFinished) {
+    // Check if ALL human players or 1v1 match completed
+    const humanPlayers = Array.from(room.players.values()).filter(p => !p.isBot);
+    const allHumansFinished = humanPlayers.every(p => p.finished);
+
+    if (allHumansFinished || room.players.size <= 2) {
+      // Instant finish on 1v1 / solo match or when all human typists complete
       finishRoomRace(room);
     } else if (player.rank === 1 && !room.graceTimer) {
-      // Give remaining typists a 15-second grace window to complete their race
+      // 2-second quick finish buffer for multi-player rooms
       room.graceTimer = setTimeout(() => {
         const unfinishedRivals = Array.from(room.players.values()).filter(p => !p.finished);
         let nextRank = finishedPlayers.length + 1;
@@ -443,7 +446,7 @@ module.exports = function (io) {
           rival.pointsGained = -5;
         }
         finishRoomRace(room);
-      }, 15000);
+      }, 2000);
     }
   }
 
