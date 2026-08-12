@@ -82,24 +82,24 @@ export default function Navbar({ onOpenAuth, onOpenFriends, onOpenJoinRoom, onOp
           className="nav-link-btn"
           onClick={onOpenEditName}
           title="Click to change display name"
-          style={{ padding: '6px 12px', background: 'var(--panel)', border: '1px solid var(--line-strong)' }}
+          style={{ padding: '6px 12px', background: '#f1f5f9', border: '1px solid #cbd5e1' }}
         >
           <div style={{
             width: '22px',
             height: '22px',
             borderRadius: '50%',
-            backgroundColor: user ? (user.avatar_color || '#6ee3ff') : '#b18aff',
+            backgroundColor: user ? (user.avatar_color || '#09090b') : '#09090b',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontWeight: '700',
             fontSize: '0.72rem',
-            color: '#05070d'
+            color: '#ffffff'
           }}>
             {displayName.charAt(0).toUpperCase()}
           </div>
-          <span className="user-name-text" style={{ fontWeight: '600', color: 'var(--white)' }}>{displayName}</span>
-          <Edit3 size={13} color="var(--cyan)" />
+          <span className="user-name-text" style={{ fontWeight: '700', color: '#09090b' }}>{displayName}</span>
+          <Edit3 size={13} color="#09090b" />
         </button>
 
         {user ? (
