@@ -116,12 +116,14 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
 
     if (e.key === 'Backspace') {
       handleBackspace();
+      e.preventDefault();
       return;
     }
 
-    // Process single printable characters on physical keyboards (without e.preventDefault() to avoid breaking mobile touch keyboards!)
+    // Process single printable characters on physical keyboards (with e.preventDefault() to prevent duplicate onChange processing)
     if (e.key && e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
       processTypedChar(e.key);
+      e.preventDefault();
     }
   };
 
