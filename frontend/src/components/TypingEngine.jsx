@@ -188,18 +188,18 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
             gap: '8px',
             padding: '14px 20px',
             borderRadius: '100px',
-            background: isFocused ? 'rgba(110, 227, 255, 0.22)' : 'rgba(177, 138, 255, 0.18)',
-            border: isFocused ? '1px solid var(--cyan)' : '1px solid var(--cyan-dim)',
-            color: 'var(--cyan)',
+            background: isFocused ? '#f1f5f9' : '#ffffff',
+            border: isFocused ? '2px solid #09090b' : '1px solid #cbd5e1',
+            color: '#09090b',
             fontFamily: 'JetBrains Mono, monospace',
             fontSize: '13.5px',
-            fontWeight: '700',
+            fontWeight: '800',
             cursor: disabled ? 'not-allowed' : 'pointer',
-            boxShadow: isFocused ? '0 0 20px var(--cyan-dim)' : 'none',
+            boxShadow: isFocused ? '0 4px 12px rgba(0, 0, 0, 0.08)' : 'none',
             transition: 'all 0.2s ease'
           }}
         >
-          <Keyboard size={18} color="var(--cyan)" />
+          <Keyboard size={18} color="#09090b" />
           {disabled 
             ? 'RACE NOT STARTED — WAIT FOR COUNTDOWN' 
             : isFocused 
@@ -210,7 +210,7 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
 
       {/* Main Sci-Fi Typing Box */}
       <div 
-        className={`typing-box-sci ${shaking ? 'shake' : ''}`}
+        className={`typing-box ${shaking ? 'shake' : ''}`}
         onClick={focusInput}
         onTouchStart={focusInput}
         style={{ cursor: disabled ? 'not-allowed' : 'text', opacity: disabled ? 0.6 : 1, position: 'relative' }}
@@ -241,13 +241,13 @@ export default function TypingEngine({ promptText = '', disabled = false, startT
             width: '100%',
             padding: '14px 18px',
             borderRadius: '14px',
-            background: 'rgba(8, 12, 22, 0.95)',
-            border: isFocused ? '1px solid var(--cyan)' : '1px solid var(--line-strong)',
-            color: 'var(--cyan)',
+            background: '#ffffff',
+            border: isFocused ? '2px solid #09090b' : '1px solid #cbd5e1',
+            color: '#09090b',
             fontSize: '15px',
             fontFamily: 'JetBrains Mono, monospace',
             outline: 'none',
-            boxShadow: isFocused ? '0 0 16px var(--cyan-dim)' : 'none'
+            boxShadow: isFocused ? '0 4px 12px rgba(0, 0, 0, 0.08)' : 'none'
           }}
         />
       </div>

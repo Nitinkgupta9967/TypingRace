@@ -83,35 +83,35 @@ export default function App() {
             <LobbyRoom onOpenFriends={() => setFriendsOpen(true)} />
           </div>
         ) : isRacingOrCountdown ? (
-          <div style={{ maxWidth: '900px', margin: '0 auto', padding: '120px 20px 80px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '85px 20px 60px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Live Race HUD Header */}
             <div className="hud">
-              <div className="hud-top">
-                <div className="hud-label">
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cyan)', boxShadow: '0 0 8px var(--cyan)' }} />
+              <div className="hud-top" style={{ width: '100%', justifyContent: 'space-between' }}>
+                <div className="hud-label" style={{ color: '#09090b', fontWeight: '800', fontSize: '13px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#09090b' }} />
                   LIVE RACE ARENA · {room.prompt ? room.prompt.category.toUpperCase() : 'GENERAL'} ({room.prompt ? room.prompt.difficulty.toUpperCase() : 'MEDIUM'})
                 </div>
 
-                <div className="hud-metrics">
-                  <div className="hud-metric">
-                    <div className="val">{currentWpm}</div>
-                    <div className="lbl">WPM</div>
+                <div className="hud-stats">
+                  <div style={{ textAlign: 'right' }}>
+                    <div className="hud-num">{currentWpm}</div>
+                    <div style={{ fontSize: '11px', fontFamily: 'JetBrains Mono', color: '#64748b', fontWeight: '700' }}>WPM</div>
                   </div>
-                  <div className="hud-metric">
-                    <div className="val">{currentAcc}%</div>
-                    <div className="lbl">ACCURACY</div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div className="hud-num">{currentAcc}%</div>
+                    <div style={{ fontSize: '11px', fontFamily: 'JetBrains Mono', color: '#64748b', fontWeight: '700' }}>ACCURACY</div>
                   </div>
                 </div>
               </div>
 
               {/* Progress Bar Fill */}
-              <div style={{ height: '4px', borderRadius: '4px', background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+              <div style={{ height: '6px', borderRadius: '4px', background: '#e2e8f0', overflow: 'hidden', marginTop: '12px' }}>
                 <div 
                   style={{ 
                     height: '100%', 
                     width: `${Math.min(100, room.prompt ? Math.round(((room.players.find(p => p.id === (user ? user.id : 'guest'))?.charIndex || 0) / room.prompt.text.length) * 100) : 0)}%`,
-                    background: 'linear-gradient(90deg, var(--cyan), var(--violet))',
+                    background: '#09090b',
                     transition: 'width 0.1s linear'
                   }} 
                 />

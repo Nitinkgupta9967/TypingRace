@@ -46,16 +46,16 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
       
       {/* ---------------- SECTION 1: HERO BATTLE ARENA ---------------- */}
       <div>
-        <div className="eyebrow">
-          <span className="dot" /> 🎮 REAL-TIME BATTLES • GLOBAL LEADERBOARDS • LEVEL UP
+        <div className="eyebrow" style={{ color: '#09090b', fontWeight: '700' }}>
+          <span className="dot" style={{ background: '#09090b' }} /> 🎮 REAL-TIME BATTLES • GLOBAL LEADERBOARDS • LEVEL UP
         </div>
 
-        <h1 className="headline">
+        <h1 className="headline" style={{ color: '#09090b' }}>
           TYPE FAST.<br />
-          <span className="line2">RACE FASTER.</span>
+          <span className="line2" style={{ color: '#09090b' }}>RACE FASTER.</span>
         </h1>
 
-        <p className="sub">
+        <p className="sub" style={{ color: '#475569', fontSize: '18px' }}>
           The ultimate typing race. Improve your speed, duel typists worldwide in sub-100ms real-time rooms, and climb the global leaderboards.
         </p>
 
@@ -64,96 +64,96 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
           <button className="btn btn-primary" onClick={handleStartRacing}>
             Start Racing Now
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
 
           <button className="btn btn-violet" onClick={onOpenCreateRoom}>
-            <Users size={18} /> Create Room
+            <Users size={18} color="#09090b" /> Create Room
           </button>
 
           <button className="btn btn-ghost" onClick={onOpenJoinRoom}>
-            <LogIn size={18} color="#ffffff" /> Join Room
+            <LogIn size={18} color="#09090b" /> Join Room
           </button>
 
           <button className="btn btn-ghost" onClick={onOpenFriends}>
-            <Bot size={18} /> Invite Friends
+            <Bot size={18} color="#09090b" /> Invite Friends
           </button>
         </div>
 
         {/* Hero Stats Grid Bar */}
         <div className="hero-stats-grid">
           <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: 'Rajdhani, sans-serif' }}>50K+</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>RACES PLAYED</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: '800', color: '#09090b', fontFamily: 'Rajdhani, sans-serif' }}>50K+</div>
+            <div style={{ fontSize: '12px', color: '#475569', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em', fontWeight: '700' }}>RACES PLAYED</div>
           </div>
 
           <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: 'Rajdhani, sans-serif' }}>25K+</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>ACTIVE TYPISTS</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: '800', color: '#09090b', fontFamily: 'Rajdhani, sans-serif' }}>25K+</div>
+            <div style={{ fontSize: '12px', color: '#475569', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em', fontWeight: '700' }}>ACTIVE TYPISTS</div>
           </div>
 
           <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--amber)', fontFamily: 'Rajdhani, sans-serif' }}>120+</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>COUNTRIES</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: '800', color: '#d97706', fontFamily: 'Rajdhani, sans-serif' }}>120+</div>
+            <div style={{ fontSize: '12px', color: '#475569', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em', fontWeight: '700' }}>COUNTRIES</div>
           </div>
 
           <div className="gamified-card" style={{ padding: '24px', textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--emerald)', fontFamily: 'Rajdhani, sans-serif' }}>98 WPM</div>
-            <div style={{ fontSize: '12px', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em' }}>TOP PLAYER AVG</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: '800', color: '#059669', fontFamily: 'Rajdhani, sans-serif' }}>98 WPM</div>
+            <div style={{ fontSize: '12px', color: '#475569', fontFamily: 'JetBrains Mono, monospace', marginTop: '4px', letterSpacing: '0.08em', fontWeight: '700' }}>TOP PLAYER AVG</div>
           </div>
         </div>
       </div>
 
       {/* ---------------- SECTION 2: CHOOSE YOUR MODE ---------------- */}
       <div>
-        <div className="hud-label" style={{ marginBottom: '8px' }}>ARENA SELECTION</div>
-        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px' }}>
-          CHOOSE YOUR <span style={{ color: '#ffffff' }}>MODE</span>
+        <div className="hud-label" style={{ marginBottom: '8px', color: '#09090b', fontWeight: '700' }}>ARENA SELECTION</div>
+        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px', color: '#09090b' }}>
+          CHOOSE YOUR <span style={{ color: '#09090b' }}>MODE</span>
         </h2>
 
         <div className="mode-cards-grid">
           <div className="gamified-card" onClick={handleStartRacing} style={{ cursor: 'pointer' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255, 255, 255, 0.1)', border: '1px solid var(--line-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Zap size={26} color="#ffffff" />
+            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#f1f5f9', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <Zap size={26} color="#09090b" />
             </div>
-            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.5rem', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>
+            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.6rem', fontWeight: '800', marginBottom: '8px', color: '#09090b' }}>
               ⚡ RACE MODE
             </h3>
-            <p style={{ fontSize: '15px', color: 'var(--muted)', lineHeight: '1.5', marginBottom: '20px' }}>
+            <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.5', marginBottom: '20px' }}>
               Compete against other typists in real-time 1v1 duels and multi-player rooms.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#ffffff', fontWeight: '700' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#09090b', fontWeight: '700' }}>
               Enter Arena <ArrowRight size={14} />
             </div>
           </div>
 
           <div className="gamified-card" onClick={onOpenCreateRoom} style={{ cursor: 'pointer' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255, 255, 255, 0.1)', border: '1px solid var(--line-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Target size={26} color="#ffffff" />
+            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#f1f5f9', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <Target size={26} color="#09090b" />
             </div>
-            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.5rem', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>
+            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.6rem', fontWeight: '800', marginBottom: '8px', color: '#09090b' }}>
               🎯 PRACTICE MODE
             </h3>
-            <p style={{ fontSize: '15px', color: 'var(--muted)', lineHeight: '1.5', marginBottom: '20px' }}>
+            <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.5', marginBottom: '20px' }}>
               Improve your speed and accuracy with targeted prompt drills and private lobby sessions.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--violet)', fontWeight: '600' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#09090b', fontWeight: '700' }}>
               Start Drill <ArrowRight size={14} />
             </div>
           </div>
 
-          <div className="gamified-card" onClick={joinQueue} style={{ cursor: 'pointer' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(245, 158, 11, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Clock size={26} color="var(--amber)" />
+          <div className="gamified-card" onClick={handleStartRacing} style={{ cursor: 'pointer' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#fef3c7', border: '1px solid #fcd34d', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <Clock size={26} color="#d97706" />
             </div>
-            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.4rem', fontWeight: '700', marginBottom: '8px', color: 'var(--amber)' }}>
+            <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.6rem', fontWeight: '800', marginBottom: '8px', color: '#d97706' }}>
               ⏱️ TIME TRIAL
             </h3>
-            <p style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: '1.5', marginBottom: '20px' }}>
+            <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.5', marginBottom: '20px' }}>
               Test your limits under pressure and beat your personal best WPM score.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--amber)', fontWeight: '600' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#d97706', fontWeight: '700' }}>
               Time Sprint <ArrowRight size={14} />
             </div>
           </div>
@@ -162,56 +162,56 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
 
       {/* ---------------- SECTION 3: HOW TO PLAY ---------------- */}
       <div>
-        <div className="hud-label" style={{ marginBottom: '8px' }}>GUIDE</div>
-        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px' }}>
-          HOW TO <span style={{ color: 'var(--cyan)' }}>PLAY</span>
+        <div className="hud-label" style={{ marginBottom: '8px', color: '#09090b', fontWeight: '700' }}>GUIDE</div>
+        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px', color: '#09090b' }}>
+          HOW TO <span style={{ color: '#09090b' }}>PLAY</span>
         </h2>
 
         <div className="steps-grid">
           <div className="gamified-card">
-            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '700', color: 'var(--cyan)', marginBottom: '8px' }}>
+            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '800', color: '#09090b', marginBottom: '8px' }}>
               01
             </div>
-            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.25rem', fontWeight: '700', marginBottom: '6px' }}>
+            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.3rem', fontWeight: '800', marginBottom: '6px', color: '#09090b' }}>
               TYPE THE WORDS
             </h4>
-            <p style={{ fontSize: '13.5px', color: 'var(--muted)', lineHeight: '1.5' }}>
+            <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.5' }}>
               Type the prompt characters as fast and accurately as you can on your keyboard.
             </p>
           </div>
 
           <div className="gamified-card">
-            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '700', color: 'var(--violet)', marginBottom: '8px' }}>
+            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '800', color: '#4f46e5', marginBottom: '8px' }}>
               02
             </div>
-            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.25rem', fontWeight: '700', marginBottom: '6px' }}>
+            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.3rem', fontWeight: '800', marginBottom: '6px', color: '#09090b' }}>
               SPEED MOVES YOU
             </h4>
-            <p style={{ fontSize: '13.5px', color: 'var(--muted)', lineHeight: '1.5' }}>
+            <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.5' }}>
               Your real-time WPM score accelerates your racer pod along the racing highway.
             </p>
           </div>
 
           <div className="gamified-card">
-            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '700', color: 'var(--amber)', marginBottom: '8px' }}>
+            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '800', color: '#d97706', marginBottom: '8px' }}>
               03
             </div>
-            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.25rem', fontWeight: '700', marginBottom: '6px' }}>
+            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.3rem', fontWeight: '800', marginBottom: '6px', color: '#09090b' }}>
               BEAT RIVALS
             </h4>
-            <p style={{ fontSize: '13.5px', color: 'var(--muted)', lineHeight: '1.5' }}>
+            <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.5' }}>
               Cross the finish line ahead of opponents to claim 1st place and gain rating points.
             </p>
           </div>
 
           <div className="gamified-card">
-            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '700', color: 'var(--emerald)', marginBottom: '8px' }}>
+            <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '2.5rem', fontWeight: '800', color: '#059669', marginBottom: '8px' }}>
               04
             </div>
-            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.25rem', fontWeight: '700', marginBottom: '6px' }}>
+            <h4 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.3rem', fontWeight: '800', marginBottom: '6px', color: '#09090b' }}>
               CLIMB THE RANKS
             </h4>
-            <p style={{ fontSize: '13.5px', color: 'var(--muted)', lineHeight: '1.5' }}>
+            <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.5' }}>
               Boost your overall WPM statistics, level up your profile, and climb the Hall of Fame.
             </p>
           </div>
@@ -220,9 +220,9 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
 
       {/* ---------------- SECTION 4: SEQUENTIAL COUNTDOWN ANIMATION DEMO ---------------- */}
       <div>
-        <div className="hud-label" style={{ marginBottom: '8px' }}>LIVE COUNTDOWN ENGINE</div>
-        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px' }}>
-          SYNCHRONIZED <span style={{ color: 'var(--violet)' }}>RACE LAUNCH</span>
+        <div className="hud-label" style={{ marginBottom: '8px', color: '#09090b', fontWeight: '700' }}>LIVE COUNTDOWN ENGINE</div>
+        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px', color: '#09090b' }}>
+          SYNCHRONIZED <span style={{ color: '#09090b' }}>RACE LAUNCH</span>
         </h2>
 
         {/* Dynamic Live Sequential Preview Component */}
@@ -231,59 +231,59 @@ export default function Matchmaker({ onOpenFriends, onOpenJoinRoom, onOpenCreate
 
       {/* ---------------- SECTION 5: LIVE LEADERBOARD PREVIEW ---------------- */}
       <div>
-        <div className="hud-label" style={{ marginBottom: '8px' }}>HALL OF FAME</div>
-        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px' }}>
-          TOP <span style={{ color: 'var(--amber)' }}>TYPISTS</span> PREVIEW
+        <div className="hud-label" style={{ marginBottom: '8px', color: '#09090b', fontWeight: '700' }}>HALL OF FAME</div>
+        <h2 className="gamified-title" style={{ fontSize: '2.2rem', marginBottom: '24px', color: '#09090b' }}>
+          TOP <span style={{ color: '#d97706' }}>TYPISTS</span> PREVIEW
         </h2>
 
         <div className="gamified-card">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: '12px', background: '#fef3c7', border: '1px solid #fcd34d' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="badge-sci badge-amber">#1</span>
-                <span style={{ fontWeight: '700', fontSize: '15px' }}>NeonStrike</span>
+                <span className="badge-sci" style={{ background: '#d97706', color: '#ffffff' }}>#1</span>
+                <span style={{ fontWeight: '800', fontSize: '15px', color: '#09090b' }}>NeonStrike</span>
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '700', color: 'var(--amber)', fontSize: '15px' }}>
+              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '800', color: '#d97706', fontSize: '15px' }}>
                 135 WPM
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', borderRadius: '10px', background: 'rgba(5, 7, 13, 0.4)', border: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: '12px', background: '#f1f5f9', border: '1px solid #e2e8f0' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="badge-sci badge-violet">#2</span>
-                <span style={{ fontWeight: '700', fontSize: '15px' }}>GuyMaster</span>
+                <span className="badge-sci" style={{ background: '#4f46e5', color: '#ffffff' }}>#2</span>
+                <span style={{ fontWeight: '800', fontSize: '15px', color: '#09090b' }}>GuyMaster</span>
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '700', color: 'var(--violet)', fontSize: '15px' }}>
+              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '800', color: '#4f46e5', fontSize: '15px' }}>
                 128 WPM
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', borderRadius: '10px', background: 'rgba(110, 227, 255, 0.08)', border: '1px solid var(--cyan-dim)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #cbd5e1' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="badge-sci badge-cyan">#3</span>
-                <span style={{ fontWeight: '700', fontSize: '15px', color: 'var(--cyan)' }}>AceTyper (You)</span>
+                <span className="badge-sci" style={{ background: '#09090b', color: '#ffffff' }}>#3</span>
+                <span style={{ fontWeight: '800', fontSize: '15px', color: '#09090b' }}>AceTyper (You)</span>
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '700', color: 'var(--cyan)', fontSize: '15px' }}>
+              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '800', color: '#09090b', fontSize: '15px' }}>
                 110 WPM
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', borderRadius: '10px', background: 'rgba(5, 7, 13, 0.4)', border: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="badge-sci" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}>#4</span>
-                <span style={{ fontWeight: '600', fontSize: '14px', color: 'var(--muted)' }}>SpeedDemon</span>
+                <span className="badge-sci" style={{ background: '#64748b', color: '#ffffff' }}>#4</span>
+                <span style={{ fontWeight: '700', fontSize: '14px', color: '#09090b' }}>SpeedDemon</span>
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '600', color: 'var(--muted)', fontSize: '14px' }}>
+              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '700', color: '#475569', fontSize: '14px' }}>
                 98 WPM
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', borderRadius: '10px', background: 'rgba(5, 7, 13, 0.4)', border: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="badge-sci" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}>#5</span>
-                <span style={{ fontWeight: '600', fontSize: '14px', color: 'var(--muted)' }}>TypeNinja</span>
+                <span className="badge-sci" style={{ background: '#64748b', color: '#ffffff' }}>#5</span>
+                <span style={{ fontWeight: '700', fontSize: '14px', color: '#09090b' }}>TypeNinja</span>
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '600', color: 'var(--muted)', fontSize: '14px' }}>
+              <div style={{ fontFamily: 'JetBrains Mono', fontWeight: '700', color: '#475569', fontSize: '14px' }}>
                 92 WPM
               </div>
             </div>
